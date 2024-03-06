@@ -18,8 +18,16 @@ import TheWelcome from './components/TheWelcome.vue'
 
     <header>
       <h2>{{sitename}}</h2>
-      <button @click="showCart">{{this.cart.length}}Cart</button>
+      <button @click="showCart">
+                {{itemsInTheCart}}
+      <font-awesome-icon :icon="['fas', 'fa-shopping-cart']" />
+      Cart
+      
+    </button>
     </header>
+
+    
+    
 
     <!-- <main>
       <TheWelcome />
@@ -51,15 +59,17 @@ export default{
 
     },
     methods:{
-      showCart(){
-        if(this.currentView === productList){
-          this.currentView = checkout;
-        }else{
-          this.currentView = productList;
-        }
-      }
+      showCart() {
+        if(this.currentView === productList){this.currentView = checkout;}
+        else{this.currentView = productList;}
+      },
+    },
+    computed: {
+      itemsInTheCart: function () {
+        return this.cart.length || "";
+      },
     }
-}
+  };
 
 </script>
 

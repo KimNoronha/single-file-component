@@ -46,12 +46,18 @@ export default{
         }
     },
     methods:{
-
+        removeLessons: function (lesson) {
+            this.$emit("remove-lessons", lesson)
+      },
+      
     },
     computed: {
       itemsInTheCart: function () {
         return this.cart.length || "";
       },
+
+     
+
     }
 }
 </script>

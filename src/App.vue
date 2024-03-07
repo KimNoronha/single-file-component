@@ -65,7 +65,8 @@ import TheWelcome from './components/TheWelcome.vue'
       :sortedLessons="sortedLessons"
       :lessonsDisplayed="lessonsDisplayed"
       :cart="cart"
-      @add-item-to-cart="addItemToCart"></component>
+      @add-item-to-cart="addItemToCart"
+      @remove-lessons="removeLessons"></component>
     </main>
   </div>
 </template>
@@ -285,6 +286,15 @@ export default{
       
       
       
+      // removeLessons: function (lesson) {
+      //     const index = this.cart.indexOf(lesson);
+      //     if (index !== -1) {
+
+      //         lesson.spaces++;
+      //         this.cart.splice(index, 1);
+      //     }
+
+      // },
       removeLessons: function (lesson) {
           const index = this.cart.indexOf(lesson);
           if (index !== -1) {
@@ -293,6 +303,9 @@ export default{
               this.cart.splice(index, 1);
           }
 
+          if (!this.atLeastOneItemInCart){
+            this.currentView = productList;
+          }
       },
       saveProductToDB() {
           const newProduct = {
@@ -329,6 +342,10 @@ export default{
 
     },
     computed: {
+      atLeastOneItemInCart(){
+        return this.itemsInTheCart >= 1;
+      },
+      
       itemsInTheCart: function () {
         return this.cart.length || "";
       },

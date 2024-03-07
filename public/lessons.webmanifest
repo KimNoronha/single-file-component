@@ -1,0 +1,20 @@
+{
+    "name": "Lessons Booking System",
+    "short_name": "Lessons-Booking",
+    "description": "Online Lessons Booking System",
+    "icons": [
+        {
+            "src": "images/websiteLogo1.png",
+            "sizes": "32x32",
+            "type": "image/png"
+        },
+        {
+            "src": "images/websiteLogo.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "start_url": "index.html",
+    "display": "fullscreen",
+    "background_colour": "#FFC300"
+}

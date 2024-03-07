@@ -35,6 +35,11 @@ import TheWelcome from './components/TheWelcome.vue'
         Delete All Caches
       </button>
 
+      <button @click="saveProductToDB">
+        <font-awesome-icon :icon="['fas', 'fa-save']" />
+                TestSave a product
+            </button>
+
       <button @click="unregisterAllServiceWorkers" class="test-elem">
         <font-awesome-icon :icon="['fab', 'fa-uniregistry']" />
           Unregister All ServiceWorkers
@@ -117,9 +122,9 @@ export default{
 
       let webstore = this;
 
-                // if ("serviceWorker" in navigator) {
-                //     navigator.serviceWorker.register("service-worker.js");
-                // }
+                if ("serviceWorker" in navigator) {
+                    navigator.serviceWorker.register("service-worker.js");
+                }
                 // fetch("https://coursework2-env.eba-yvmeadmq.eu-west-2.elasticbeanstalk.com/collections/products")
                 fetch("http://localhost:5502/collections/products")
                     .then(response => response.json())
@@ -319,7 +324,9 @@ export default{
 
           }
 
-          fetch("https://coursework2-env.eba-yvmeadmq.eu-west-2.elasticbeanstalk.com/collections/products", {
+          let webstore = this;
+
+          fetch("http://localhost:5502/collections/products", {
               method: "POST",
               headers: {
                   "Content-Type": "application/json",
@@ -345,7 +352,7 @@ export default{
       atLeastOneItemInCart(){
         return this.itemsInTheCart >= 1;
       },
-      
+
       itemsInTheCart: function () {
         return this.cart.length || "";
       },

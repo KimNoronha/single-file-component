@@ -26,7 +26,7 @@
                 <p>Subject: {{lesson.title}}</p>
                 <p>Location: {{lesson.location}}</p>
                 <p>Price: {{lesson.price}}</p>
-                <!-- <p>Spaces: {{itemsLeft(lesson)}}</p> -->
+                <p>Spaces: {{itemsLeft(lesson)}}</p>
             </div>
                 <button v-if="canAddToCart(lesson)" v-on:click="addItemToCart(lesson)">
                     <font-awesome-icon :icon="['fas', 'fa-shopping-cart']" />
@@ -52,6 +52,7 @@ export default{
     methods:{
 
         canAddToCart: function (lesson) {
+           
           return lesson.spaces > this.cartCount(lesson.id);
         },
 
@@ -64,6 +65,15 @@ export default{
 
           }
           return count;
+      },
+
+      addItemToCart: function(lesson){
+        this.$emit("add-item-to-cart", lesson)
+      },
+      itemsLeft(lesson) {
+        
+        return lesson.spaces - this.cartCount(lesson.id);
+        
       },
     }
 }

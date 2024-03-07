@@ -64,7 +64,8 @@ import TheWelcome from './components/TheWelcome.vue'
       :imagesBaseURL="imagesBaseURL"
       :sortedLessons="sortedLessons"
       :lessonsDisplayed="lessonsDisplayed"
-      :cart="cart"></component>
+      :cart="cart"
+      @add-item-to-cart="addItemToCart"></component>
     </main>
   </div>
 </template>
@@ -94,6 +95,14 @@ export default{
           showTestConsole: true,
           searchLesson: "",
           searchQuery: "",
+          lessonPresentInCart: false,
+          order: {
+                    firstname: "",
+                    phone: "",
+                    lessonDetails: [],
+
+
+                },
         }
     },
     components: {
@@ -146,6 +155,15 @@ export default{
 
           });
           this.lessonPresentInCart = true;
+
+          const lessonIndex = this.lessons.findIndex(l => l.lesson_id === lesson.lesson_id);
+          if (lessonIndex !== -1 && this.lessons[lessonIndex].spaces > 0) {
+              // Decrease the lesson's spaces reactively
+              this.lessons[lessonIndex].spaces -= 1;
+          } else {
+              // Optionally handle the case when the lesson is not found or no spaces are left
+              console.log("No spaces left or lesson not found");
+          }
 
           console.log("Lesson Details:", this.order.lessonDetails);
 
@@ -266,9 +284,7 @@ export default{
 
       
       
-      itemsLeft(lesson) {
-          return lesson.spaces - this.cartCount(lesson.id);
-      },
+      
       removeLessons: function (lesson) {
           const index = this.cart.indexOf(lesson);
           if (index !== -1) {

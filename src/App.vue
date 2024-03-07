@@ -60,7 +60,10 @@ import TheWelcome from './components/TheWelcome.vue'
     </main> -->
 
     <main>
-      <component :is="currentView"></component>
+      <component :is="currentView" 
+      :imagesBaseURL="imagesBaseURL"
+      :sortedLessons="sortedLessons"
+      :lessonsDisplayed="lessonsDisplayed"></component>
     </main>
   </div>
 </template>
@@ -69,17 +72,27 @@ import TheWelcome from './components/TheWelcome.vue'
 
 import productList from './components/productList.vue'
 import checkout from './components/checkout.vue'
+import lessons from './assets/json/lessons.json'
+
 
 export default{
     name: 'app',
     data() {
         return{
           sitename: 'Individual Demonstration Booking System',
+          lessons: lessons ,
+          // lessons: [],
+          imagesBaseURL:"",
+          // imagesBaseURL:"http://localhost:5502/collections/products",
           serverURL: "http://localhost:5502/collections/products",
           cart: [],
+          sortingLessons: "location",
+          sortingOrder: "ascending",
           currentView: productList,
           testConsole: true,
           showTestConsole: true,
+          searchLesson: "",
+          searchQuery: "",
         }
     },
     components: {
@@ -208,7 +221,7 @@ export default{
               const lessonId = detail.id;
               const newSpaces = detail.spaces;
 
-              fetch(`https://coursework2-env.eba-yvmeadmq.eu-west-2.elasticbeanstalk.com/collections/products/${lessonId}`, {
+              fetch(`http://localhost:5502/collections/orders/${lessonId}`, {
                   method: 'PUT',
                   headers: {
                       'Content-Type': 'application/json',
@@ -290,6 +303,57 @@ export default{
       itemsInTheCart: function () {
         return this.cart.length || "";
       },
+
+      
+      sortedLessons() {
+        let sortedLessons = [];
+        function sortByLocation(a, b) {
+            if (a.location > b.location) return 1;
+            if (a.location < b.location) return -1;
+            return 0;
+        }
+
+        function sortBySubject(a, b) {
+            if (a.title > b.title) return 1;
+            if (a.title < b.title) return -1;
+            return 0;
+        }
+
+        function sortByPrice(a, b) {
+            if (a.price > b.price) return 1;
+            if (a.price < b.price) return -1;
+            return 0;
+        }
+
+        if (this.sortingLessons === 'location') {
+            sortedLessons = this.lessons.slice().sort(sortByLocation);
+        } else if (this.sortingLessons === "subject") {
+            sortedLessons = this.lessons.slice().sort(sortBySubject);
+        } else if (this.sortingLessons === "price") {
+            sortedLessons = this.lessons.slice().sort(sortByPrice);
+        }
+
+        if (this.sortingOrder === "descending") {
+            sortedLessons.reverse();
+        }
+
+
+        return sortedLessons;
+    },
+
+      lessonsDisplayed: function () {
+        if (this.searchQuery) {
+            const query = this.searchQuery.toLowerCase();
+            return this.lessons.filter(lesson => {
+                const title = lesson.title.toLowerCase();
+                const location = lesson.location.toLowerCase();
+                return title.includes(query) || location.includes(query);
+            });
+        } else {
+            return this.sortedLessons;
+        }
+    },
+
     }
   };
 

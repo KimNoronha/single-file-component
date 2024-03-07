@@ -3,7 +3,7 @@ import App from './App.vue'
 
 import './assets/main.css'
 
-import './assets/app.css'
+// import './assets/app.css'
 
 /* ---------- START: Font Awesome ----------*/
 /* import the fontawesome core */
@@ -13,13 +13,13 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 /* import specific icons */
-import { faShoppingCart, faTextHeight } from '@fortawesome/free-solid-svg-icons'
+import {faSync, faTrash, faShoppingCart, faTextHeight } from '@fortawesome/free-solid-svg-icons'
 
 /* import specific icons */
 import { faUniregistry } from '@fortawesome/free-brands-svg-icons'
 
 /* add icons to the library */
-library.add(faShoppingCart, faTextHeight, faUniregistry)
+library.add(faShoppingCart, faTextHeight, faUniregistry, faTrash, faSync)
 
 /* add font awesome icon component */
 Vue.component('font-awesome-icon', FontAwesomeIcon)

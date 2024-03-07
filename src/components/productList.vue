@@ -28,11 +28,11 @@
                 <p>Price: {{lesson.price}}</p>
                 <!-- <p>Spaces: {{itemsLeft(lesson)}}</p> -->
             </div>
-                <!-- <button v-if="canAddToCart(lesson)" v-on:click="addItemToCart(lesson)">
-                    <i class="fa fa-shopping-cart" style="color: #000000;"></i>
+                <button v-if="canAddToCart(lesson)" v-on:click="addItemToCart(lesson)">
+                    <font-awesome-icon :icon="['fas', 'fa-shopping-cart']" />
                     Add to cart</button>
                 <button v-else disabled>Add to cart</button>
-             -->
+            
 
 
         </div>
@@ -43,14 +43,28 @@
 <script>
 export default{
     name: 'productList',
-    props: ["lessonsDisplayed", "sortedLessons"],
+    props: ["lessonsDisplayed", "sortedLessons", "cart"],
     data() {
         return{
            
         }
     },
-    created() {
-        console.log(this.lessonsDisplayed);
+    methods:{
+
+        canAddToCart: function (lesson) {
+          return lesson.spaces > this.cartCount(lesson.id);
+        },
+
+        cartCount(id) {
+          let count = 0;
+          for (let i = 0; i < this.cart.length; i++) {
+              if (this.cart[i] === id) {
+                  count++;
+              }
+
+          }
+          return count;
+      },
     }
 }
 </script>

@@ -63,7 +63,8 @@ import TheWelcome from './components/TheWelcome.vue'
       <component :is="currentView" 
       :imagesBaseURL="imagesBaseURL"
       :sortedLessons="sortedLessons"
-      :lessonsDisplayed="lessonsDisplayed"></component>
+      :lessonsDisplayed="lessonsDisplayed"
+      :cart="cart"></component>
     </main>
   </div>
 </template>
@@ -72,7 +73,7 @@ import TheWelcome from './components/TheWelcome.vue'
 
 import productList from './components/productList.vue'
 import checkout from './components/checkout.vue'
-import lessons from './assets/json/lessons.json'
+// import lessons from './assets/json/lessons.json'
 
 
 export default{
@@ -80,8 +81,8 @@ export default{
     data() {
         return{
           sitename: 'Individual Demonstration Booking System',
-          lessons: lessons ,
-          // lessons: [],
+          // lessons: lessons ,
+          lessons: [],
           imagesBaseURL:"",
           // imagesBaseURL:"http://localhost:5502/collections/products",
           serverURL: "http://localhost:5502/collections/products",
@@ -100,6 +101,30 @@ export default{
       checkout
 
     },
+
+    created: 
+    function () {
+
+      let webstore = this;
+
+                // if ("serviceWorker" in navigator) {
+                //     navigator.serviceWorker.register("service-worker.js");
+                // }
+                // fetch("https://coursework2-env.eba-yvmeadmq.eu-west-2.elasticbeanstalk.com/collections/products")
+                fetch("http://localhost:5502/collections/products")
+                    .then(response => response.json())
+                    .then(json => {
+
+                        webstore.lessons = json.map(lesson => ({
+                            ...lesson,
+                            lesson_id: lesson.id,
+                            id: lesson._id,
+                        }));
+                    })
+                    .catch(error => console.error("Error fetching lessons: ", error));
+            },
+
+
     methods:{
       showCart() {
         if(this.currentView === productList){this.currentView = checkout;}
@@ -239,20 +264,8 @@ export default{
 
 
 
-      canAddToCart: function (lesson) {
-          return lesson.spaces > this.cartCount(lesson.id);
-
-      },
-      cartCount(id) {
-          let count = 0;
-          for (let i = 0; i < this.cart.length; i++) {
-              if (this.cart[i] === id) {
-                  count++;
-              }
-
-          }
-          return count;
-      },
+      
+      
       itemsLeft(lesson) {
           return lesson.spaces - this.cartCount(lesson.id);
       },

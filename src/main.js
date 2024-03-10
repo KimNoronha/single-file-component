@@ -3,7 +3,7 @@ import App from './App.vue'
 
 import './assets/main.css'
 
-// import './assets/app.css'
+import './assets/app.css'
 
 /* ---------- START: Font Awesome ----------*/
 /* import the fontawesome core */

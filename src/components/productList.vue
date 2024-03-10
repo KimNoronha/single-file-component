@@ -25,7 +25,7 @@
             <div>
                 <p>Subject: {{lesson.title}}</p>
                 <p>Location: {{lesson.location}}</p>
-                <p>Price: {{lesson.price}}</p>
+                <p>Price: <font-awesome-icon :icon="['fas', 'fa-pound-sign']" />{{lesson.price}}</p>
                 <p>Spaces: {{itemsLeft(lesson)}}</p>
             </div>
                 <button v-if="canAddToCart(lesson)" v-on:click="addItemToCart(lesson)">

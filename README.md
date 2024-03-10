@@ -1,3 +1,11 @@
+Link to git repository
+https://github.com/KimNoronha/single-file-component
+
+Link to gh-pages
+https://kimnoronha.github.io/single-file-component/
+
+
+
 # header-vue-project
 
 This template should help get you started developing with Vue 3 in Vite.

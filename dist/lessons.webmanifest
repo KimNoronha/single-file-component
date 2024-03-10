@@ -4,8 +4,8 @@
     "description": "Online Lessons Booking System",
     "icons": [
         {
-            "src": "images/websiteLogo1.png",
-            "sizes": "32x32",
+            "src": "images/websiteLogo2.png",
+            "sizes": "192x192",
             "type": "image/png"
         },
         {
@@ -16,5 +16,20 @@
     ],
     "start_url": "index.html",
     "display": "fullscreen",
-    "background_colour": "#FFC300"
+    "background_colour": "#FFC300",
+    "screenshots": [
+        {
+          "src": "images/screenshot-desktop.png",
+          "type": "image/png",
+          "sizes": "1920x1080",
+          "form_factor": "wide"
+        },
+        {
+          "src": "images/screenshot-mobile.png",
+          "type": "image/png",
+          "sizes": "720x1280"
+          
+        }
+      ]
 }
+
